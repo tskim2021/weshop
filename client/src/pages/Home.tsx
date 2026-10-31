@@ -713,9 +713,9 @@ function CustomerReviewSection() {
   const visible = reviews.slice(page * REVIEWS_PER_PAGE, (page + 1) * REVIEWS_PER_PAGE);
 
   return (
-    <section id="reviews" className="bg-white py-14 md:py-20">
+    <section id="reviews" className="bg-white py-8 md:py-10">
       <div className="container">
-        <div className="flex items-end justify-between mb-8">
+        <div className="flex items-end justify-between mb-6">
           <div><p className="shop-eyebrow mb-3">LATEST REVIEWS</p><h2 className="shop-section-title">사용자들의 솔직한 이야기 <span className="text-primary">✦</span></h2><p className="text-sm text-slate-500 mt-3">고르고, 써보고, 남겨주신 이야기입니다.</p></div>
           <Link href="/shop/itemuselist.php" className="hidden sm:flex text-sm font-bold text-slate-700 hover:text-primary items-center gap-1 transition-colors">
             전체 후기 <ChevronRight className="w-4 h-4" />
@@ -851,9 +851,9 @@ function CommunitySectionMenu() {
   ];
 
   return (
-    <section className="py-12 bg-secondary/20">
+    <section className="py-8 md:py-10 bg-secondary/20">
       <div className="container">
-        <div className="mb-8">
+        <div className="mb-6">
           <h2 className="text-2xl font-bold tracking-tight">커뮤니티</h2>
           <p className="text-sm text-muted-foreground mt-1">회원들과 자유롭게 소통하세요</p>
         </div>
@@ -1221,7 +1221,7 @@ function ShopProductShowcase() {
   const { data, isLoading } = trpc.product.list.useQuery({ limit: 8, sort: "popular" });
   const products = data?.products ?? [];
   return (
-    <section id="popular" className="bg-white pt-6 md:pt-8 pb-12 md:pb-16">
+    <section id="popular" className="bg-white pt-6 md:pt-8 pb-8 md:pb-10">
       <div className="container">
         <div className="flex items-end justify-between gap-4 mb-6">
           <div className="min-w-0">
@@ -1255,7 +1255,7 @@ function NewProductShowcase() {
   const { data, isLoading } = trpc.product.list.useQuery({ limit: 4, sort: "newest" });
   const products = data?.products ?? [];
   return (
-    <section className="bg-[#fbfcff] py-12 md:py-16">
+    <section className="bg-[#fbfcff] py-8 md:py-10">
       <div className="container">
         <div className="flex items-end justify-between gap-4 mb-6">
           <div className="min-w-0">
@@ -1288,9 +1288,9 @@ function CuratedMoments() {
     { eyebrow: "SKIN & DAILY CARE", title: "더 나은 나를 위한 선택", body: "피부와 생활을 위한 큐레이션", image: second?.thumbnail, href: "/products?category=skin-beauty" },
   ];
   return (
-    <section className="bg-[#fbfcff] py-14 md:py-20">
+    <section className="bg-[#fbfcff] py-8 md:py-10">
       <div className="container">
-        <div className="flex items-end justify-between mb-8"><div><p className="shop-eyebrow mb-3">CURATED MOMENTS</p><h2 className="shop-section-title">더 나은 건강 라이프</h2></div><span className="hidden md:block text-sm text-slate-400">당신의 일상을 위한 작은 영감</span></div>
+        <div className="flex items-end justify-between mb-6"><div><p className="shop-eyebrow mb-3">CURATED MOMENTS</p><h2 className="shop-section-title">더 나은 건강 라이프</h2></div><span className="hidden md:block text-sm text-slate-400">당신의 일상을 위한 작은 영감</span></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cards.map(card => <Link key={card.title} href={card.href} className="group relative overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white min-h-[220px] flex items-stretch"><div className="w-[45%] overflow-hidden bg-slate-100">{card.image && <img src={proxyImage(card.image)} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />}</div><div className="flex-1 p-7 md:p-9 flex flex-col justify-center"><p className="shop-eyebrow text-[10px] mb-3">{card.eyebrow}</p><h3 className="text-xl md:text-2xl font-black tracking-tight text-slate-950">{card.title}</h3><p className="mt-3 text-sm text-slate-500">{card.body} <ArrowRight className="inline w-4 h-4 ml-1" /></p></div></Link>)}
         </div>
