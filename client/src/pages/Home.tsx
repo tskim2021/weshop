@@ -671,24 +671,22 @@ function ReviewCard({ post }: { post: any }) {
       {post.productThumbnail && post.productSlug && (
         <Link
           href={productLink}
-          className="group/product mt-1 block overflow-hidden rounded-xl border border-slate-100 bg-slate-50"
+          className="group/product mt-1 flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-2.5 py-2"
           aria-label={`${post.productName ?? "상품"} 상세 보기`}
         >
-          <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-white">
             <img
               src={proxyImage(post.productThumbnail)}
               alt={post.productName ?? "후기 상품 이미지"}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover/product:scale-105"
+              className="h-full w-full object-contain p-1 transition-transform duration-300 group-hover/product:scale-105"
               loading="lazy"
             />
-            <span className="absolute bottom-2 right-2 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-slate-700 shadow-sm">
-              상품 보기 ↗
-            </span>
           </div>
-          <div className="flex items-center justify-between gap-2 px-3 py-2.5">
-            <span className="truncate text-xs font-semibold text-slate-700">{post.productName}</span>
-            <ArrowRight className="h-3.5 w-3.5 shrink-0 text-primary" />
+          <div className="min-w-0 flex-1">
+            <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400">상품 보기</p>
+            <span className="line-clamp-2 text-xs font-semibold leading-snug text-slate-700">{post.productName}</span>
           </div>
+          <ArrowRight className="h-3.5 w-3.5 shrink-0 text-primary" />
         </Link>
       )}
       <div className="flex items-center justify-between gap-2 pt-3 mt-auto border-t border-slate-100">
