@@ -1,0 +1,19 @@
+{
+  "source": "https://talmoschool.com",
+  "counts": {
+    "categories": 5,
+    "boards": 6,
+    "products": 374,
+    "posts": 211
+  },
+  "imagesDownloaded": 342,
+  "imageFailures": [],
+  "excluded": [
+    "members",
+    "orders",
+    "payment settings",
+    "private inquiries",
+    "hidden posts",
+    "comments"
+  ]
+}

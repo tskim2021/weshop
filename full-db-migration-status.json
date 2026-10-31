@@ -1,0 +1,49 @@
+{
+  "requested": "Copy complete current source DB into an independently operated destination DB",
+  "sourceHost": "129.121.103.209",
+  "sourcePath": "/var/www/talmoschool-shop",
+  "destinationHost": "129.121.121.125",
+  "destinationCurrentDatabase": "koreamall",
+  "status": "completed",
+  "sourceAccess": "Verified with the supplied root credentials; read-only source inspection completed",
+  "sourceDatabase": "talmo2026",
+  "sourceTableCount": 58,
+  "sourceKeyCounts": {
+    "products": 374,
+    "categories": 5,
+    "posts": 280,
+    "users": 1171,
+    "orders": 189,
+    "g5_shop_item": 425
+  },
+  "destinationCloneDatabase": "talmo2026_clone",
+  "destinationCloneUser": "talmo_clone",
+  "destinationCloneTableCount": 58,
+  "destinationCloneKeyCounts": {
+    "products": 374,
+    "categories": 5,
+    "posts": 280,
+    "users": 1171,
+    "orders": 189,
+    "g5_shop_item": 425
+  },
+  "cloneService": "koreamall-clone.service on 127.0.0.1:3106",
+  "publicService": "koreamall.service on 127.0.0.1:3105 remains connected to koreamall",
+  "destinationBackup": "/root/koreamall-db-backups/20261031T033511Z/koreamall-before-full-import.sql.gz",
+  "backupVerification": "gzip integrity passed; row counts recorded for 55 tables; destination service healthy",
+  "historicalDumpFound": {
+    "date": "2026-06-05",
+    "schema": "GnuBoard, 82 tables",
+    "used": false
+  },
+  "verification": [
+    "Source and clone both report 58 tables and matching exact counts for the key tables",
+    "Clone service is active and product.list returned HTTP 200 with source product data",
+    "Existing public service remains active and unchanged",
+    "Source DB was never written"
+  ],
+  "notes": [
+    "Two source TEXT defaults were removed from the restore DDL because the destination MariaDB rejects defaults on TEXT columns; row data is unchanged",
+    "The clone service is localhost-only pending the user's domain information"
+  ]
+}

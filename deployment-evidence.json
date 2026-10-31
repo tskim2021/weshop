@@ -1,0 +1,48 @@
+{
+  "url": "http://129.121.121.125",
+  "verifiedAt": "2026-10-31",
+  "checks": {
+    "health": true,
+    "categories": 5,
+    "products": 374,
+    "searchMatches": 6,
+    "infoPosts": 100,
+    "postDetail": true,
+    "reviews": 0,
+    "reviewStats": 0,
+    "photoGallery": true,
+    "sampleImageMatches": true,
+    "orderingBlocked": true
+  },
+  "source": "private Talmo-School/artifacts/shop at 153ba47 with isolated koreamall adaptations",
+  "serverPath": "/var/www/koreamall-storefront",
+  "service": "koreamall",
+  "database": "koreamall",
+  "scope": "public catalogue and public posts; no checkout; no member/order migration",
+  "browserChecks": {
+    "desktop": "1440x900, header/search/navigation/hero rendered",
+    "mobile": "default browser width restored and layout rendered",
+    "search": "투게인: 6 results",
+    "detail": "product image and information visible",
+    "publicBoard": "100 info posts visible",
+    "brokenLoadedImages": 0
+  },
+  "migrationCounts": {
+    "products": 374,
+    "categories": 5,
+    "publicPosts": 211,
+    "images": 342
+  },
+  "notMigrated": [
+    "members",
+    "orders",
+    "payment settings",
+    "private inquiries",
+    "hidden posts",
+    "comments"
+  ],
+  "pending": [
+    "domain and HTTPS",
+    "member authentication/device testing not performed"
+  ]
+}
