@@ -1165,7 +1165,7 @@ function ShopHero() {
   ];
 
   return (
-    <section className="bg-white pt-8 md:pt-12 pb-5">
+    <section className="bg-white pt-8 md:pt-12 pb-2">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-[1.85fr_0.7fr] gap-5 min-h-[360px] md:min-h-[430px]">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-[#142544] text-white p-8 md:p-12 flex items-end shadow-[0_18px_45px_rgba(17,36,74,0.16)]">
@@ -1192,7 +1192,7 @@ function ShopHero() {
             {side?.thumbnail && <img src={proxyImage(side.thumbnail)} alt="추천 건강 상품" className="absolute bottom-0 right-0 w-full h-[58%] object-cover object-center opacity-80 mix-blend-multiply" />}
           </div>
         </div>
-        <div className="flex items-start justify-center gap-7 md:gap-14 py-8 overflow-x-auto scrollbar-hide">
+        <div className="flex items-start justify-center gap-7 md:gap-14 py-3 md:py-4 overflow-x-auto scrollbar-hide">
           {categories.map(({ Icon, ...item }) => (
             <Link key={item.label} href={item.href} className="group flex shrink-0 flex-col items-center gap-2.5 text-slate-700 hover:text-primary">
               <span
@@ -1219,9 +1219,9 @@ function ShopProductShowcase() {
   const { data, isLoading } = trpc.product.list.useQuery({ limit: 8, sort: "popular" });
   const products = data?.products ?? [];
   return (
-    <section id="popular" className="bg-white py-12 md:py-16">
+    <section id="popular" className="bg-white pt-6 md:pt-8 pb-12 md:pb-16">
       <div className="container">
-        <div className="flex items-end justify-between gap-4 mb-8">
+        <div className="flex items-end justify-between gap-4 mb-6">
           <div>
             <p className="shop-eyebrow mb-3">PICKS FOR YOU</p>
             <h2 className="shop-section-title">오늘의 추천 상품 <span className="text-primary">✦</span></h2>
