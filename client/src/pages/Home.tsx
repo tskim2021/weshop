@@ -701,14 +701,10 @@ const REVIEWS_PER_PAGE = 8;
 const MAX_REVIEW_PAGES = 3;
 
 function CustomerReviewSection() {
-  const [page, setPage] = useState(0);
   const { data, isLoading } = trpc.community.recentBySlug.useQuery({ slug: "review", limit: REVIEWS_PER_PAGE * MAX_REVIEW_PAGES });
   const reviews = data ?? [];
-  const totalPages = Math.min(MAX_REVIEW_PAGES, Math.ceil(reviews.length / REVIEWS_PER_PAGE));
 
   if (!isLoading && reviews.length === 0) return null;
-
-  const visible = reviews.slice(page * REVIEWS_PER_PAGE, (page + 1) * REVIEWS_PER_PAGE);
 
   return (
     <section id="reviews" className="bg-white py-8 md:py-10">
@@ -720,42 +716,13 @@ function CustomerReviewSection() {
           </Link>
         </div>
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {Array.from({ length: REVIEWS_PER_PAGE }).map((_, i) => <Skeleton key={i} className="h-44 rounded-xl" />)}
+          <div className="weshop-review-track scrollbar-hide" aria-label="후기 목록 불러오는 중">
+            {Array.from({ length: REVIEWS_PER_PAGE }).map((_, i) => <div key={i} className="weshop-review-slide"><Skeleton className="h-44 w-full rounded-xl" /></div>)}
           </div>
         ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {visible.map((post: any) => <ReviewCard key={post.id} post={post} />)}
-            </div>
-            {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-3 mt-6">
-                <button
-                  onClick={() => setPage(p => Math.max(0, p - 1))}
-                  disabled={page === 0}
-                  className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-accent transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <ChevronRight className="w-4 h-4 rotate-180" />
-                </button>
-                <div className="flex gap-1.5">
-                  {Array.from({ length: totalPages }).map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setPage(i)}
-                      className={`w-2 h-2 rounded-full transition-colors ${i === page ? "bg-primary" : "bg-muted-foreground/30"}`}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
-                  disabled={page === totalPages - 1}
-                  className="w-8 h-8 rounded-full border flex items-center justify-center hover:bg-accent transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            )}
-          </>
+          <div className="weshop-review-track scrollbar-hide" aria-label="후기 목록">
+            {reviews.map((post: any) => <div key={post.id} className="weshop-review-slide"><ReviewCard post={post} /></div>)}
+          </div>
         )}
       </div>
     </section>

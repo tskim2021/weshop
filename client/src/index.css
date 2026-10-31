@@ -213,6 +213,35 @@ html, body, #root {
   transition: filter 220ms ease;
 }
 
+.weshop-review-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.25rem;
+  padding: 0.25rem;
+  margin: -0.25rem;
+}
+
+.weshop-review-slide {
+  flex: 0 0 calc((100% - 5rem) / 4.5);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1023px) {
+  .weshop-review-slide {
+    flex-basis: calc((100% - 2rem) / 2.5);
+  }
+}
+
+@media (max-width: 639px) {
+  .weshop-review-slide {
+    flex-basis: calc((100% - 1rem) / 1.2);
+  }
+}
+
 .group:hover .weshop-category-icon {
   transform: none;
   filter: drop-shadow(2px 3px 0 rgba(25, 42, 76, 0.22)) drop-shadow(0 9px 8px rgba(25, 42, 76, 0.16));
