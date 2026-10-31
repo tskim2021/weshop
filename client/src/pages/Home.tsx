@@ -770,72 +770,73 @@ function PromoCard() {
 }
 
 function CommunitySectionMenu() {
-  const items = [
-    {
-      icon: <Newspaper className="w-5 h-5 text-primary" />,
-      title: "건강뉴스",
-      desc: "카테고리별 국내외 건강 뉴스 및 연구 정보",
-      href: "/news",
-    },
-    {
-      icon: <BookOpen className="w-5 h-5 text-primary" />,
-      title: "정보나눔",
-      desc: "상품 관련 정보를 자유롭게 공유하는 게시판입니다.",
-      href: "/info-board",
-    },
-    {
-      icon: <Star className="w-5 h-5 text-primary" />,
-      title: "고객리뷰",
-      desc: "구매하신 상품의 후기를 남겨주세요.",
-      href: "/community/review",
-    },
-    {
-      icon: <FileText className="w-5 h-5 text-primary" />,
-      title: "공지사항",
-      desc: "쇼핑몰의 중요한 소식을 전해드립니다.",
-      href: "/bbs/board.php?bo_table=notice",
-    },
-    {
-      icon: <HelpCircle className="w-5 h-5 text-primary" />,
-      title: "FAQ",
-      desc: "자주 묻는 질문과 답변을 확인하세요.",
-      href: "/customer-service/faq",
-    },
-    {
-      icon: <ShoppingBag className="w-5 h-5 text-primary" />,
-      title: "장바구니",
-      desc: "담아두신 상품을 확인하고 구매하세요.",
-      href: "/cart",
-    },
-    {
-      icon: <Users className="w-5 h-5 text-primary" />,
-      title: "마이페이지",
-      desc: "주문 내역, 포인트, 나의 정보를 확인하세요.",
-      href: "/mypage",
-    },
-  ];
+  const { data: newsData, isLoading: newsLoading } = trpc.news.latestForHome.useQuery({ limit: 5 });
+  const { data: infoData, isLoading: infoLoading } = trpc.infoBoard.posts.useQuery({ page: 1, limit: 5 });
+
+  const formatDate = (date: string | Date) => {
+    const d = new Date(date);
+    return `${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  const renderRows = (items: any[] | undefined, isLoading: boolean, emptyText: string, hrefFor: (item: any) => string) => {
+    if (isLoading) {
+      return <div className="space-y-3">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-5 w-full" />)}</div>;
+    }
+    if (!items || items.length === 0) {
+      return <p className="py-5 text-sm text-muted-foreground">{emptyText}</p>;
+    }
+    return (
+      <ul className="divide-y divide-slate-200/80">
+        {items.slice(0, 5).map((item: any) => (
+          <li key={item.id}>
+            <Link href={hrefFor(item)} className="flex items-center gap-4 py-3.5 group">
+              <span className="min-w-0 flex-1 truncate text-sm text-slate-700 group-hover:text-primary transition-colors">
+                {item.title}
+              </span>
+              <span className="shrink-0 text-xs tabular-nums text-slate-400">{formatDate(item.createdAt)}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
-    <section className="py-8 md:py-10 bg-secondary/20">
+    <section className="border-t border-slate-200/80 bg-[#fbfcff] py-8 md:py-10">
       <div className="container">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold tracking-tight">커뮤니티</h2>
-          <p className="text-sm text-muted-foreground mt-1">회원들과 자유롭게 소통하세요</p>
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="shop-eyebrow mb-2">COMMUNITY</p>
+            <h2 className="shop-section-title">건강한 정보를 나누세요</h2>
+          </div>
+          <span className="hidden text-sm text-slate-400 md:block">최신 소식과 회원들의 이야기</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {items.map((item) => (
-            <Link key={item.title} href={item.href}>
-              <div className="bg-card rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{item.title}</h3>
-                </div>
-                <p className="text-xs text-muted-foreground line-clamp-2">{item.desc}</p>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+          <div className="min-w-0">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <Newspaper className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-bold text-slate-950">건강뉴스</h3>
               </div>
-            </Link>
-          ))}
+              <Link href="/news" className="flex items-center gap-0.5 text-sm text-slate-500 hover:text-primary transition-colors">
+                더보기 <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+            {renderRows(newsData, newsLoading, "등록된 건강뉴스가 없습니다.", (item) => `/news/${item.id}`)}
+          </div>
+
+          <div className="min-w-0">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-bold text-slate-950">정보나눔</h3>
+              </div>
+              <Link href="/info-board" className="flex items-center gap-0.5 text-sm text-slate-500 hover:text-primary transition-colors">
+                더보기 <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+            {renderRows(infoData?.posts, infoLoading, "등록된 정보나눔 글이 없습니다.", (item) => `/info-board/${item.id}`)}
+          </div>
         </div>
       </div>
     </section>
@@ -1279,7 +1280,6 @@ export default function Home() {
         <NewProductShowcase />
         <CustomerReviewSection />
         <CommunitySectionMenu />
-        <NewsPreviewSection />
       </div>
     </Layout>
   );
