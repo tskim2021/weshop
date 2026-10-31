@@ -1,4 +1,4 @@
-import logoImg from "@/assets/logo.svg";
+import logoImg from "@/assets/weshop-logo-v2.svg";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { formatPrice, proxyImage } from "@/lib/utils";

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="104" viewBox="0 0 500 104" role="img" aria-labelledby="title desc">
+  <title id="title">WESHOP</title>
+  <desc id="desc">Simple WESHOP shopping logo with a blue rounded mark and white W symbol</desc>
+  <defs>
+    <linearGradient id="mark" x1="12" y1="8" x2="92" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3D7BFF"/>
+      <stop offset="1" stop-color="#1D56D6"/>
+    </linearGradient>
+  </defs>
+  <g aria-hidden="true">
+    <rect x="6" y="10" width="84" height="84" rx="25" fill="url(#mark)"/>
+    <path d="M26 35 35.5 70 48 47.5 60.5 70 70 35" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+    <path d="M67 20c8-5 16-3 20 2-5 7-12 9-19 7-2-2-2-5-1-9Z" fill="#8FE3B0"/>
+  </g>
+  <text x="108" y="72" fill="#17213F" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="800" letter-spacing="-3">WESHOP</text>
+  <text x="365" y="42" fill="#17213F" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">해외직구 전문 쇼핑몰</text>
+  <text x="366" y="62" fill="#71809A" font-family="Arial, Helvetica, sans-serif" font-size="11" letter-spacing=".2">community &amp; shopping</text>
+</svg>
