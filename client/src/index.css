@@ -204,14 +204,14 @@ html, body, #root {
 }
 
 .weshop-category-icon {
-  transform: translateZ(0);
+  transform: none;
   filter: drop-shadow(2px 3px 0 rgba(25, 42, 76, 0.22)) drop-shadow(0 9px 8px rgba(25, 42, 76, 0.16));
-  transition: transform 220ms ease, filter 220ms ease;
+  transition: filter 220ms ease;
 }
 
 .group:hover .weshop-category-icon {
-  transform: translateY(-4px) scale(1.06);
-  filter: drop-shadow(3px 5px 0 rgba(25, 42, 76, 0.22)) drop-shadow(0 12px 10px rgba(25, 42, 76, 0.18));
+  transform: none;
+  filter: drop-shadow(2px 3px 0 rgba(25, 42, 76, 0.22)) drop-shadow(0 9px 8px rgba(25, 42, 76, 0.16));
 }
 
 @media (max-width: 639px) {
