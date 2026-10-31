@@ -11,7 +11,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useSEO } from "@/hooks/useSEO";
-import { proxyImage } from "@/lib/utils";
+import { productHref, proxyImage } from "@/lib/utils";
 
 const HERO_BANNERS = [
   {
@@ -648,12 +648,13 @@ function BoardPreviewColumn({ slug, title, href, limit = 5, postLinkFn }: { slug
 function ReviewCard({ post }: { post: any }) {
   const name = post.displayName || (post.userName ?? "익명");
   const stars = Math.min(5, Math.max(1, post.rating ?? 5));
+  const productLink = productHref(post.productSlug, post.productItId);
   const dateStr = post.createdAt
     ? new Date(post.createdAt).toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\. /g, "-").replace(/\.$/, "")
     : "";
 
   return (
-    <Link href={`/shop/itemuseview.php?is_id=${post.id}`} className="shop-soft-card flex flex-col min-w-0 cursor-pointer p-5 gap-3 hover:-translate-y-1 transition-transform">
+    <article className="shop-soft-card flex flex-col min-w-0 p-5 gap-3 hover:-translate-y-1 transition-transform">
       <div className="flex items-center justify-between gap-2">
         <div className="flex gap-0.5 items-center" aria-label={`${stars}점 평점`}>
         {Array.from({ length: 5 }).map((_, i) => (
@@ -667,11 +668,34 @@ function ReviewCard({ post }: { post: any }) {
       )}
       <p className="text-base font-bold line-clamp-2 leading-snug text-slate-950">{post.title}</p>
       <p className="text-sm text-slate-500 line-clamp-3 leading-relaxed flex-1">{post.content}</p>
+      {post.productThumbnail && post.productSlug && (
+        <Link
+          href={productLink}
+          className="group/product mt-1 block overflow-hidden rounded-xl border border-slate-100 bg-slate-50"
+          aria-label={`${post.productName ?? "상품"} 상세 보기`}
+        >
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <img
+              src={proxyImage(post.productThumbnail)}
+              alt={post.productName ?? "후기 상품 이미지"}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover/product:scale-105"
+              loading="lazy"
+            />
+            <span className="absolute bottom-2 right-2 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-slate-700 shadow-sm">
+              상품 보기 ↗
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2 px-3 py-2.5">
+            <span className="truncate text-xs font-semibold text-slate-700">{post.productName}</span>
+            <ArrowRight className="h-3.5 w-3.5 shrink-0 text-primary" />
+          </div>
+        </Link>
+      )}
       <div className="flex items-center justify-between gap-2 pt-3 mt-auto border-t border-slate-100">
         <span className="text-xs font-medium text-slate-500 truncate">{name}</span>
-        <span className="text-xs text-primary font-bold">후기 보기 ↗</span>
+        <Link href={`/shop/itemuseview.php?is_id=${post.id}`} className="text-xs text-primary font-bold hover:underline">후기 보기 ↗</Link>
       </div>
-    </Link>
+    </article>
   );
 }
 
