@@ -654,7 +654,7 @@ function ReviewCard({ post }: { post: any }) {
     : "";
 
   return (
-    <article className="shop-soft-card flex flex-col min-w-0 p-5 gap-3 hover:-translate-y-1 transition-transform">
+    <article className="shop-soft-card flex h-[360px] min-w-0 flex-col gap-3 overflow-hidden p-5 hover:-translate-y-1 transition-transform">
       <div className="flex items-center justify-between gap-2">
         <div className="flex gap-0.5 items-center" aria-label={`${stars}점 평점`}>
         {Array.from({ length: 5 }).map((_, i) => (
@@ -666,8 +666,8 @@ function ReviewCard({ post }: { post: any }) {
       {post.productName && (
         <p className="text-[11px] font-semibold text-primary truncate">{post.productName}</p>
       )}
-      <p className="text-base font-bold line-clamp-2 leading-snug text-slate-950">{post.title}</p>
-      <p className="text-sm text-slate-500 line-clamp-3 leading-relaxed flex-1">{post.content}</p>
+      <p className="min-h-[2.75rem] text-base font-bold line-clamp-2 leading-snug text-slate-950">{post.title}</p>
+      <p className="min-h-[4.5rem] text-sm text-slate-500 line-clamp-3 leading-relaxed flex-1">{post.content}</p>
       {post.productThumbnail && post.productSlug && (
         <Link
           href={productLink}
@@ -717,7 +717,7 @@ function CustomerReviewSection() {
         </div>
         {isLoading ? (
           <div className="weshop-review-track scrollbar-hide" aria-label="후기 목록 불러오는 중">
-            {Array.from({ length: REVIEWS_PER_PAGE }).map((_, i) => <div key={i} className="weshop-review-slide"><Skeleton className="h-44 w-full rounded-xl" /></div>)}
+            {Array.from({ length: REVIEWS_PER_PAGE }).map((_, i) => <div key={i} className="weshop-review-slide"><Skeleton className="h-[360px] w-full rounded-xl" /></div>)}
           </div>
         ) : (
           <div className="weshop-review-track scrollbar-hide" aria-label="후기 목록">
