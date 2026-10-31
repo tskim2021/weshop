@@ -5,7 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, HeartPulse, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X, Scissors, Droplets, Scale, Leaf } from "lucide-react";
+import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, HeartPulse, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X, Scissors, Droplets, Scale, Leaf, Sparkles, Trophy } from "lucide-react";
 import { Link } from "wouter";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -1157,6 +1157,8 @@ function ShopHero() {
   const main = data?.products?.[0];
   const side = data?.products?.[1] ?? main;
   const categories = [
+    { label: "신상품", Icon: Sparkles, href: "/products?filter=new", color: "#2864e8" },
+    { label: "베스트", Icon: Trophy, href: "/products?filter=best", color: "#d6a02e" },
     { label: "탈모헤어", Icon: Scissors, href: "/products?category=hair-loss", color: "#4e7fdb" },
     { label: "성기능", Icon: HeartPulse, href: "/products?category=sexual-health", color: "#df5685" },
     { label: "피부미용", Icon: Droplets, href: "/products?category=skin-beauty", color: "#6750bb" },
@@ -1167,7 +1169,7 @@ function ShopHero() {
   return (
     <section className="bg-white pt-8 md:pt-12 pb-2">
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.85fr_0.7fr] gap-5 min-h-[360px] md:min-h-[430px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.85fr_0.7fr] gap-5 min-h-[330px] md:min-h-[390px]">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-[#142544] text-white p-8 md:p-12 flex items-end shadow-[0_18px_45px_rgba(17,36,74,0.16)]">
             <div className="relative z-10 max-w-[48%] md:max-w-[44%]">
               <p className="text-xs tracking-[0.24em] font-bold text-blue-300 mb-4 uppercase">WESHOP CURATION</p>
@@ -1182,7 +1184,7 @@ function ShopHero() {
             )}
             <div className="absolute bottom-8 right-8 text-xs text-white/65 tracking-wide">01 / 01&nbsp;&nbsp; WESHOP SELECTION</div>
           </div>
-          <div className="relative overflow-hidden rounded-[1.5rem] bg-[#eaf0fc] p-7 md:p-8 flex flex-col justify-between text-[#1b315d] min-h-[300px]">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-[#eaf0fc] p-7 md:p-8 flex flex-col justify-between text-[#1b315d] min-h-[260px]">
             <div className="relative z-10 max-w-[72%]">
               <p className="text-xs tracking-[0.24em] font-bold text-slate-500 mb-4 uppercase">SMART CHOICE</p>
               <h2 className="text-2xl md:text-3xl font-black leading-tight tracking-[-0.05em]">가볍게 고르고,<br />꾸준히 챙기세요.</h2>
@@ -1222,10 +1224,12 @@ function ShopProductShowcase() {
     <section id="popular" className="bg-white pt-6 md:pt-8 pb-12 md:pb-16">
       <div className="container">
         <div className="flex items-end justify-between gap-4 mb-6">
-          <div>
+          <div className="min-w-0">
             <p className="shop-eyebrow mb-3">PICKS FOR YOU</p>
-            <h2 className="shop-section-title">오늘의 추천 상품 <span className="text-primary">✦</span></h2>
-            <p className="text-sm md:text-base text-slate-500 mt-3">지금 가장 많이 찾는 건강 루틴과 인기 아이템</p>
+            <div className="flex flex-wrap items-end gap-x-4 gap-y-2">
+              <h2 className="shop-section-title">오늘의 추천 상품 <span className="text-primary">✦</span></h2>
+              <p className="text-sm md:text-base text-slate-500 mb-1">지금 가장 많이 찾는 건강 루틴과 인기 아이템</p>
+            </div>
           </div>
           <Link href="/products" className="hidden sm:flex items-center gap-1 text-sm font-bold text-slate-600 hover:text-primary">전체 상품 보기 <ArrowRight className="w-4 h-4" /></Link>
         </div>
@@ -1240,6 +1244,34 @@ function ShopProductShowcase() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10">
             {products.slice(0, 8).map(product => <ProductCard key={product.id} product={product} />)}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function NewProductShowcase() {
+  const { data, isLoading } = trpc.product.list.useQuery({ limit: 4, sort: "newest" });
+  const products = data?.products ?? [];
+  return (
+    <section className="bg-[#fbfcff] py-12 md:py-16">
+      <div className="container">
+        <div className="flex items-end justify-between gap-4 mb-6">
+          <div className="min-w-0">
+            <p className="shop-eyebrow mb-3">NEW ARRIVALS</p>
+            <div className="flex flex-wrap items-end gap-x-4 gap-y-2">
+              <h2 className="shop-section-title">신상품 <span className="text-primary">✦</span></h2>
+              <p className="text-sm md:text-base text-slate-500 mb-1">새롭게 등록된 상품을 가장 먼저 만나보세요</p>
+            </div>
+          </div>
+          <Link href="/products?filter=new" className="hidden sm:flex items-center gap-1 text-sm font-bold text-slate-600 hover:text-primary">신상품 전체 보기 <ArrowRight className="w-4 h-4" /></Link>
+        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10">{Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="aspect-[0.9] rounded-2xl" />)}</div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10">
+            {products.slice(0, 4).map(product => <ProductCard key={product.id} product={product} />)}
           </div>
         )}
       </div>
@@ -1279,6 +1311,7 @@ export default function Home() {
         <ShopHero />
         <ShopProductShowcase />
         <CuratedMoments />
+        <NewProductShowcase />
         <CustomerReviewSection />
         <CommunitySectionMenu />
         <NewsPreviewSection />
