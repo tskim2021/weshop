@@ -5,7 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X } from "lucide-react";
+import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, HeartPulse, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -1133,12 +1133,12 @@ function ShopHero() {
   const main = data?.products?.[0];
   const side = data?.products?.[1] ?? main;
   const categories = [
-    { label: "전체보기", icon: "✦", href: "/products" },
-    { label: "탈모헤어", icon: "♧", href: "/products?category=hair-loss" },
-    { label: "성기능", icon: "✿", href: "/products?category=sexual-health" },
-    { label: "피부미용", icon: "⌘", href: "/products?category=skin-beauty" },
-    { label: "다이어트", icon: "⌂", href: "/products?category=diet" },
-    { label: "건강", icon: "♨", href: "/products?category=health" },
+    { label: "전체보기", Icon: Star, href: "/products", tone: "from-[#7da5ff] via-[#2864e8] to-[#1547b7]" },
+    { label: "탈모헤어", Icon: Pill, href: "/products?category=hair-loss", tone: "from-[#d9e7ff] via-[#8db8ff] to-[#4e7fdb]" },
+    { label: "성기능", Icon: HeartPulse, href: "/products?category=sexual-health", tone: "from-[#ffd9e8] via-[#ff9fbe] to-[#df5685]" },
+    { label: "피부미용", Icon: FlaskConical, href: "/products?category=skin-beauty", tone: "from-[#e1d9ff] via-[#a18bea] to-[#6750bb]" },
+    { label: "다이어트", Icon: Shield, href: "/products?category=diet", tone: "from-[#d4f3df] via-[#81ce9a] to-[#3e9b68]" },
+    { label: "건강", Icon: Globe, href: "/products?category=health", tone: "from-[#ffe6c8] via-[#ffbb77] to-[#db7632]" },
   ];
 
   return (
@@ -1170,9 +1170,16 @@ function ShopHero() {
           </div>
         </div>
         <div className="flex items-start justify-center gap-7 md:gap-14 py-8 overflow-x-auto scrollbar-hide">
-          {categories.map((item, index) => (
-            <Link key={item.label} href={item.href} className={`flex flex-col items-center gap-2 shrink-0 group ${index === 0 ? "text-primary" : "text-slate-700"}`}>
-              <span className={`w-16 h-16 md:w-20 md:h-20 rounded-[1.35rem] border flex items-center justify-center text-2xl md:text-3xl transition-all group-hover:-translate-y-1 ${index === 0 ? "border-blue-300 bg-blue-50" : "border-slate-200 bg-slate-50"}`}>{item.icon}</span>
+          {categories.map(({ Icon, ...item }, index) => (
+            <Link key={item.label} href={item.href} className={`flex flex-col items-center gap-3 shrink-0 group ${index === 0 ? "text-primary" : "text-slate-700"}`}>
+              <span className="relative block w-16 h-16 md:w-[4.75rem] md:h-[4.75rem] [perspective:900px]">
+                <span className="absolute inset-x-2 -bottom-1 h-3 rounded-full bg-slate-900/20 blur-md transition-all duration-300 group-hover:scale-90 group-hover:opacity-60" />
+                <span className={`w-full h-full rounded-[1.35rem] border border-white/70 bg-gradient-to-br ${item.tone} shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_12px_20px_rgba(30,53,95,0.18)] flex items-center justify-center weshop-3d-icon`}>
+                  <span className="absolute inset-0 rounded-[1.35rem] bg-gradient-to-br from-white/35 via-transparent to-black/20 pointer-events-none" />
+                  <span className="absolute top-2 left-3 h-2 w-8 rounded-full bg-white/55 blur-[2px] -rotate-12 pointer-events-none" />
+                  <Icon className="relative z-10 h-7 w-7 md:h-8 md:w-8 text-white drop-shadow-[0_3px_0_rgba(15,23,42,0.28)]" strokeWidth={2.3} />
+                </span>
+              </span>
               <span className="text-xs md:text-sm font-bold whitespace-nowrap">{item.label}</span>
             </Link>
           ))}

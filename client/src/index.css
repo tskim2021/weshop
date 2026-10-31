@@ -203,6 +203,29 @@ html, body, #root {
   }
 }
 
+.weshop-3d-icon {
+  position: absolute;
+  inset: 0;
+  transform: perspective(900px) rotateX(16deg) rotateY(-13deg) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.weshop-3d-icon::after {
+  content: "";
+  position: absolute;
+  inset: 7px -5px -6px 7px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(145deg, rgba(16, 35, 76, 0.32), rgba(16, 35, 76, 0.08));
+  transform: translateZ(-18px);
+  filter: blur(0.2px);
+}
+
+.group:hover .weshop-3d-icon {
+  transform: perspective(900px) rotateX(5deg) rotateY(-5deg) translateY(-5px);
+}
+
 @media (max-width: 639px) {
   .container {
     padding-left: 1rem;
