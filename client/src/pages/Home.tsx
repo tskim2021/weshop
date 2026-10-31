@@ -5,7 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, HeartPulse, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X, Grid2X2, Scissors, Droplets, Scale, Leaf } from "lucide-react";
+import { ArrowRight, ShoppingBag, Users, Star, Truck, Shield, MessageCircle, Newspaper, Globe, FlaskConical, HeartPulse, ThumbsUp, Eye, MessageSquare, BookOpen, Pill, AlertTriangle, FileText, HelpCircle, Clock, ChevronRight, X, Scissors, Droplets, Scale, Leaf } from "lucide-react";
 import { Link } from "wouter";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
@@ -1157,7 +1157,6 @@ function ShopHero() {
   const main = data?.products?.[0];
   const side = data?.products?.[1] ?? main;
   const categories = [
-    { label: "전체보기", Icon: Grid2X2, href: "/products", color: "#2864e8" },
     { label: "탈모헤어", Icon: Scissors, href: "/products?category=hair-loss", color: "#4e7fdb" },
     { label: "성기능", Icon: HeartPulse, href: "/products?category=sexual-health", color: "#df5685" },
     { label: "피부미용", Icon: Droplets, href: "/products?category=skin-beauty", color: "#6750bb" },
@@ -1194,12 +1193,15 @@ function ShopHero() {
           </div>
         </div>
         <div className="flex items-start justify-center gap-7 md:gap-14 py-8 overflow-x-auto scrollbar-hide">
-          {categories.map(({ Icon, ...item }, index) => (
-            <Link key={item.label} href={item.href} className={`flex flex-col items-center gap-3 shrink-0 group ${index === 0 ? "text-primary" : "text-slate-700"}`}>
-              <span className="flex h-16 w-16 items-center justify-center md:h-[4.75rem] md:w-[4.75rem]">
+          {categories.map(({ Icon, ...item }) => (
+            <Link key={item.label} href={item.href} className="group flex shrink-0 flex-col items-center gap-2.5 text-slate-700 hover:text-primary">
+              <span
+                className="weshop-category-frame flex h-12 w-12 items-center justify-center rounded-[0.9rem] border-2 bg-white/80 md:h-14 md:w-14"
+                style={{ borderColor: `${item.color}66` }}
+              >
                 <Icon
                   aria-hidden="true"
-                  className="weshop-category-icon h-12 w-12 md:h-14 md:w-14"
+                  className="weshop-category-icon h-7 w-7 md:h-8 md:w-8"
                   style={{ color: item.color }}
                   strokeWidth={1.8}
                 />

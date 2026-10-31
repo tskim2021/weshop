@@ -203,6 +203,10 @@ html, body, #root {
   }
 }
 
+.weshop-category-frame {
+  box-shadow: 0 5px 12px rgba(25, 42, 76, 0.1);
+}
+
 .weshop-category-icon {
   transform: none;
   filter: drop-shadow(2px 3px 0 rgba(25, 42, 76, 0.22)) drop-shadow(0 9px 8px rgba(25, 42, 76, 0.16));
